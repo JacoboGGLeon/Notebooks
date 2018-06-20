@@ -1,9 +1,6 @@
-# Delfín 2018
+# Programa Delfín 2018
 
 ## Practice 0: Setting Up A Data Science Environment
-
-### Download the following resources:
-* [fuero-comun-municipios.csv](http://datamx.io/dataset/delitos-del-fuero-comun)
 
 ### Download and install the following elements (software):
 * [anaconda](https://www.anaconda.com/)
@@ -13,6 +10,9 @@
 
 ### Create an account in:
 * [github](https://github.com/)
+
+### Download the following resources:
+* [fuero-comun-municipios.csv](http://datamx.io/dataset/delitos-del-fuero-comun)
 
 
 
