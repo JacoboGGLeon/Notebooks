@@ -1,0 +1,2345 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{practice\_1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Dipanjan Sarkar, Raghav Bali, Tushar Sharma - Practical Machine Learning
+with Python - Apress (2018).pdf
+
+    \section{Processing, Wrangling and Visualizing
+Data}\label{processing-wrangling-and-visualizing-data}
+
+    \subsection{CRISP-DM methodology.}\label{crisp-dm-methodology.}
+
+It is one of the standard workflows followed by Data Science teams
+across the world. We will concentrate on the following sub-sections of
+this methodology: * Data collection: To understand different data
+retrieval mechanisms for different data types * Data description: To
+understand various attributes and properties of the data collected *
+Data wrangling: To prepare data for consumption in the modeling steps *
+Data visualization: To visualize different attributes for sharing
+results, better understanding, and so on
+
+    \subsubsection{Data Exploration}\label{data-exploration}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} http://datamx.io/dataset/delitos\PYZhy{}del\PYZhy{}fuero\PYZhy{}comun}
+         \PY{n}{path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../../../Datasets/fuerocomunmunicipios.csv}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{latin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{low\PYZus{}memory}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+         0           1         1  2011      1  DELITOS PATRIMONIALES   
+         1           1         1  2011      2  DELITOS PATRIMONIALES   
+         2           1         1  2011      3  DELITOS PATRIMONIALES   
+         3           1         1  2011      4  DELITOS PATRIMONIALES   
+         4           1         1  2011      5  DELITOS PATRIMONIALES   
+         
+                         category                type             subtype  count  \textbackslash{}
+         0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+         1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+         2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+         3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+         4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+         
+            population  
+         0      811483  
+         1      812551  
+         2      813619  
+         3      814686  
+         4      815754  
+\end{Verbatim}
+            
+    General Stats
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5740636 entries, 0 to 5740635
+Data columns (total 10 columns):
+state\_code    int64
+mun\_code      int64
+year          int64
+month         int64
+crime         object
+category      object
+type          object
+subtype       object
+count         float64
+population    int64
+dtypes: float64(1), int64(5), object(4)
+memory usage: 438.0+ MB
+
+    \end{Verbatim}
+
+    Shape of dataframe
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:} (5740636, 10)
+\end{Verbatim}
+            
+    Number of rows
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}145}]:} 5740636
+\end{Verbatim}
+            
+    Number of columns
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of columns: 
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:} 10
+\end{Verbatim}
+            
+    Column Names
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:} ['state\_code',
+           'mun\_code',
+           'year',
+           'month',
+           'crime',
+           'category',
+           'type',
+           'subtype',
+           'count',
+           'population']
+\end{Verbatim}
+            
+    Column Data Types
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{df}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}149}]:} state\_code      int64
+          mun\_code        int64
+          year            int64
+          month           int64
+          crime          object
+          category       object
+          type           object
+          subtype        object
+          count         float64
+          population      int64
+          dtype: object
+\end{Verbatim}
+            
+    Columns with Missing Values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}150}]:} ['count']
+\end{Verbatim}
+            
+    Number of rows with Missing Values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}151}]:} 3414383
+\end{Verbatim}
+            
+    Sample Indices with missing data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{nonzero}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}152}]:} [941, 946, 2661, 2741, 2781]
+\end{Verbatim}
+            
+    Summary Stats
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}154}]:}          state\_code      mun\_code          year         month         count  \textbackslash{}
+          count  5.740636e+06  5.740636e+06  5.740636e+06  5.740636e+06  2.326253e+06   
+          mean   1.899102e+01  9.452533e+01  2.012263e+03  6.004696e+00  2.308071e+00   
+          std    7.608523e+00  1.188232e+02  9.405606e-01  3.479479e+00  1.984210e+01   
+          min    1.000000e+00  1.000000e+00  2.011000e+03  1.000000e+00  0.000000e+00   
+          25\%    1.400000e+01  2.100000e+01  2.012000e+03  3.000000e+00  0.000000e+00   
+          50\%    2.000000e+01  5.100000e+01  2.012000e+03  6.000000e+00  0.000000e+00   
+          75\%    2.400000e+01  1.090000e+02  2.013000e+03  9.000000e+00  0.000000e+00   
+          max    3.200000e+01  5.700000e+02  2.014000e+03  1.200000e+01  3.778000e+03   
+          
+                   population  
+          count  5.740636e+06  
+          mean   5.235490e+04  
+          std    1.450224e+05  
+          min    9.000000e+01  
+          25\%    5.329000e+03  
+          50\%    1.491100e+04  
+          75\%    3.693200e+04  
+          max    1.830454e+06  
+\end{Verbatim}
+            
+    Select specific row index
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}162}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0           1         1  2011      1  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          
+             population  
+          0      811483  
+\end{Verbatim}
+            
+    Select specific row indices
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{30}\PY{p}{:}\PY{l+m+mi}{33}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}163}]:}     state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          30           1         1  2013      7  DELITOS PATRIMONIALES   
+          31           1         1  2013      8  DELITOS PATRIMONIALES   
+          32           1         1  2013      9  DELITOS PATRIMONIALES   
+          33           1         1  2013     10  DELITOS PATRIMONIALES   
+          
+                           category                type             subtype  count  \textbackslash{}
+          30  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   47.0   
+          31  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   48.0   
+          32  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   39.0   
+          33  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   42.0   
+          
+              population  
+          30      842391  
+          31      843374  
+          32      844358  
+          33      845341  
+\end{Verbatim}
+            
+    Excluding Specific Row indices
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}183}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          1           1         1  2011      2  DELITOS PATRIMONIALES   
+          2           1         1  2011      3  DELITOS PATRIMONIALES   
+          3           1         1  2011      4  DELITOS PATRIMONIALES   
+          4           1         1  2011      5  DELITOS PATRIMONIALES   
+          5           1         1  2011      6  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+          3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+          4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+          5  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          
+             population  
+          1      812551  
+          2      813619  
+          3      814686  
+          4      815754  
+          5      816822  
+\end{Verbatim}
+            
+    Excluding Specific Range Row indices
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}181}]:}     state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0            1         1  2011      1  DELITOS PATRIMONIALES   
+          5            1         1  2011      6  DELITOS PATRIMONIALES   
+          6            1         1  2011      7  DELITOS PATRIMONIALES   
+          7            1         1  2011      8  DELITOS PATRIMONIALES   
+          8            1         1  2011      9  DELITOS PATRIMONIALES   
+          9            1         1  2011     10  DELITOS PATRIMONIALES   
+          10           1         1  2011     11  DELITOS PATRIMONIALES   
+          11           1         1  2011     12  DELITOS PATRIMONIALES   
+          12           1         1  2012      1  DELITOS PATRIMONIALES   
+          13           1         1  2012      2  DELITOS PATRIMONIALES   
+          
+                           category                type             subtype  count  \textbackslash{}
+          0   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          5   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          6   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   42.0   
+          7   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   37.0   
+          8   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   36.0   
+          9   DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   37.0   
+          10  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   31.0   
+          11  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   27.0   
+          12  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   50.0   
+          13  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   52.0   
+          
+              population  
+          0       811483  
+          5       816822  
+          6       817861  
+          7       818900  
+          8       819939  
+          9       820978  
+          10      822017  
+          11      823056  
+          12      824094  
+          13      825133  
+\end{Verbatim}
+            
+    Subsetting based on offset from top (bottom)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{df}\PY{p}{[}\PY{l+m+mi}{100}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}df.tail(\PYZhy{}100) )}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}209}]:}      state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          100           1         1  2012      9  DELITOS PATRIMONIALES   
+          101           1         1  2012     10  DELITOS PATRIMONIALES   
+          102           1         1  2012     11  DELITOS PATRIMONIALES   
+          103           1         1  2012     12  DELITOS PATRIMONIALES   
+          104           1         1  2013      1  DELITOS PATRIMONIALES   
+          
+                            category     type        subtype  count  population  
+          100  DELITOS PATRIMONIALES  DESPOJO  CON VIOLENCIA    0.0      832319  
+          101  DELITOS PATRIMONIALES  DESPOJO  CON VIOLENCIA    0.0      833329  
+          102  DELITOS PATRIMONIALES  DESPOJO  CON VIOLENCIA    0.0      834339  
+          103  DELITOS PATRIMONIALES  DESPOJO  CON VIOLENCIA    0.0      835348  
+          104  DELITOS PATRIMONIALES  DESPOJO  CON VIOLENCIA    0.0      836358  
+\end{Verbatim}
+            
+    Get values for crime
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}191}]:} array(['DELITOS PATRIMONIALES', 'DELITOS PATRIMONIALES',
+                 'DELITOS PATRIMONIALES', {\ldots}, 'ROBOS', 'ROBOS', 'ROBOS'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}194}]:} array(['DELITOS PATRIMONIALES', 'DELITOS SEXUALES', 'HOMICIDIOS',
+                 'LESIONES', 'OTROS DELITOS', 'PRIV. DE LA LIBERTAD (SECUESTRO)',
+                 'ROBOS'], dtype=object)
+\end{Verbatim}
+            
+    Get number of values for crime
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{value\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}190}]:} <bound method IndexOpsMixin.value\_counts of 0          DELITOS PATRIMONIALES
+          1          DELITOS PATRIMONIALES
+          2          DELITOS PATRIMONIALES
+          3          DELITOS PATRIMONIALES
+          4          DELITOS PATRIMONIALES
+          5          DELITOS PATRIMONIALES
+          6          DELITOS PATRIMONIALES
+          7          DELITOS PATRIMONIALES
+          8          DELITOS PATRIMONIALES
+          9          DELITOS PATRIMONIALES
+          10         DELITOS PATRIMONIALES
+          11         DELITOS PATRIMONIALES
+          12         DELITOS PATRIMONIALES
+          13         DELITOS PATRIMONIALES
+          14         DELITOS PATRIMONIALES
+          15         DELITOS PATRIMONIALES
+          16         DELITOS PATRIMONIALES
+          17         DELITOS PATRIMONIALES
+          18         DELITOS PATRIMONIALES
+          19         DELITOS PATRIMONIALES
+          20         DELITOS PATRIMONIALES
+          21         DELITOS PATRIMONIALES
+          22         DELITOS PATRIMONIALES
+          23         DELITOS PATRIMONIALES
+          24         DELITOS PATRIMONIALES
+          25         DELITOS PATRIMONIALES
+          26         DELITOS PATRIMONIALES
+          27         DELITOS PATRIMONIALES
+          28         DELITOS PATRIMONIALES
+          29         DELITOS PATRIMONIALES
+                             {\ldots}          
+          5740606                    ROBOS
+          5740607                    ROBOS
+          5740608                    ROBOS
+          5740609                    ROBOS
+          5740610                    ROBOS
+          5740611                    ROBOS
+          5740612                    ROBOS
+          5740613                    ROBOS
+          5740614                    ROBOS
+          5740615                    ROBOS
+          5740616                    ROBOS
+          5740617                    ROBOS
+          5740618                    ROBOS
+          5740619                    ROBOS
+          5740620                    ROBOS
+          5740621                    ROBOS
+          5740622                    ROBOS
+          5740623                    ROBOS
+          5740624                    ROBOS
+          5740625                    ROBOS
+          5740626                    ROBOS
+          5740627                    ROBOS
+          5740628                    ROBOS
+          5740629                    ROBOS
+          5740630                    ROBOS
+          5740631                    ROBOS
+          5740632                    ROBOS
+          5740633                    ROBOS
+          5740634                    ROBOS
+          5740635                    ROBOS
+          Name: crime, Length: 5740636, dtype: object>
+\end{Verbatim}
+            
+    Get the number of unique values for each column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}198}]:} \PY{n}{df}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nunique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}198}]:}          state\_code  mun\_code     year    month    crime  category     type  \textbackslash{}
+          count       5740636   5740636  5740636  5740636  5740636   5740636  5740636   
+          size        5740636   5740636  5740636  5740636  5740636   5740636  5740636   
+          nunique          32       570        4       12        7        10       18   
+          
+                   subtype    count  population  
+          count    5740636  2326253     5740636  
+          size     5740636  5740636     5740636  
+          nunique       29      889       46404  
+\end{Verbatim}
+            
+    An \texttt{agg} within a \texttt{groupby}. And\texttt{stack} at the end.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nunique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}199}]:}                     mun\_code    year   month   crime  category    type  \textbackslash{}
+          state\_code                                                               
+          1          count       29040   29040   29040   29040     29040   29040   
+                     size        29040   29040   29040   29040     29040   29040   
+                     nunique        11       4      12       7        10      18   
+          2          count       13200   13200   13200   13200     13200   13200   
+                     size        13200   13200   13200   13200     13200   13200   
+                     nunique         5       4      12       7        10      18   
+          3          count       13200   13200   13200   13200     13200   13200   
+                     size        13200   13200   13200   13200     13200   13200   
+                     nunique         5       4      12       7        10      18   
+          4          count       29040   29040   29040   29040     29040   29040   
+                     size        29040   29040   29040   29040     29040   29040   
+                     nunique        11       4      12       7        10      18   
+          5          count      100320  100320  100320  100320    100320  100320   
+                     size       100320  100320  100320  100320    100320  100320   
+                     nunique        38       4      12       7        10      18   
+          6          count       26400   26400   26400   26400     26400   26400   
+                     size        26400   26400   26400   26400     26400   26400   
+                     nunique        10       4      12       7        10      18   
+          7          count      311520  311520  311520  311520    311520  311520   
+                     size       311520  311520  311520  311520    311520  311520   
+                     nunique       118       4      12       7        10      18   
+          8          count      176880  176880  176880  176880    176880  176880   
+                     size       176880  176880  176880  176880    176880  176880   
+                     nunique        67       4      12       7        10      18   
+          9          count       42108   42108   42108   42108     42108   42108   
+                     size        42108   42108   42108   42108     42108   42108   
+                     nunique        16       4      12       7        10      18   
+          10         count      102960  102960  102960  102960    102960  102960   
+                     size       102960  102960  102960  102960    102960  102960   
+                     nunique        39       4      12       7        10      18   
+          {\ldots}                      {\ldots}     {\ldots}     {\ldots}     {\ldots}       {\ldots}     {\ldots}   
+          23         count       26400   26400   26400   26400     26400   26400   
+                     size        26400   26400   26400   26400     26400   26400   
+                     nunique        10       4      12       7        10      18   
+          24         count      114114  114114  114114  114114    114114  114114   
+                     size       114114  114114  114114  114114    114114  114114   
+                     nunique        58       4      12       7        10      18   
+          25         count       47520   47520   47520   47520     47520   47520   
+                     size        47520   47520   47520   47520     47520   47520   
+                     nunique        18       4      12       7        10      18   
+          26         count      168828  168828  168828  168828    168828  168828   
+                     size       168828  168828  168828  168828    168828  168828   
+                     nunique        72       4      12       7        10      18   
+          27         count       43494   43494   43494   43494     43494   43494   
+                     size        43494   43494   43494   43494     43494   43494   
+                     nunique        17       4      12       7        10      18   
+          28         count      107844  107844  107844  107844    107844  107844   
+                     size       107844  107844  107844  107844    107844  107844   
+                     nunique        43       4      12       7        10      18   
+          29         count      154440  154440  154440  154440    154440  154440   
+                     size       154440  154440  154440  154440    154440  154440   
+                     nunique        60       4      12       7        10      18   
+          30         count      515064  515064  515064  515064    515064  515064   
+                     size       515064  515064  515064  515064    515064  515064   
+                     nunique       212       4      12       7        10      18   
+          31         count      273042  273042  273042  273042    273042  273042   
+                     size       273042  273042  273042  273042    273042  273042   
+                     nunique       106       4      12       7        10      18   
+          32         count      114576  114576  114576  114576    114576  114576   
+                     size       114576  114576  114576  114576    114576  114576   
+                     nunique        58       4      12       7        10      18   
+          
+                              subtype   count  population  
+          state\_code                                       
+          1          count      29040   28904       29040  
+                     size       29040   29040       29040  
+                     nunique       29     219         440  
+          2          count      13200    5392       13200  
+                     size       13200   13200       13200  
+                     nunique       29     521         200  
+          3          count      13200   10200       13200  
+                     size       13200   13200       13200  
+                     nunique       29     215         200  
+          4          count      29040   28973       29040  
+                     size       29040   29040       29040  
+                     nunique       29      37         439  
+          5          count     100320   72473      100320  
+                     size      100320  100320      100320  
+                     nunique       29     216        1482  
+          6          count      26400   26400       26400  
+                     size       26400   26400       26400  
+                     nunique       29     113         400  
+          7          count     311520   77854      311520  
+                     size      311520  311520      311520  
+                     nunique       29     123        4505  
+          8          count     176880   17750      176880  
+                     size      176880  176880      176880  
+                     nunique       29     336        2405  
+          9          count      42108   42072       42108  
+                     size       42108   42108       42108  
+                     nunique       29     402         635  
+          10         count     102960    8578      102960  
+                     size      102960  102960      102960  
+                     nunique       29     229        1485  
+          {\ldots}                     {\ldots}     {\ldots}         {\ldots}  
+          23         count      26400   25872       26400  
+                     size       26400   26400       26400  
+                     nunique       29     210         400  
+          24         count     114114  114114      114114  
+                     size      114114  114114      114114  
+                     nunique       29     186        1619  
+          25         count      47520   29520       47520  
+                     size       47520   47520       47520  
+                     nunique       29     235         710  
+          26         count     168828   32922      168828  
+                     size      168828  168828      168828  
+                     nunique       29     199        2062  
+          27         count      43494   43490       43494  
+                     size       43494   43494       43494  
+                     nunique       29     296         658  
+          28         count     107844   72604      107844  
+                     size      107844  107844      107844  
+                     nunique       29     168        1492  
+          29         count     154440  154307      154440  
+                     size      154440  154440      154440  
+                     nunique       29      36        2248  
+          30         count     515064  114144      515064  
+                     size      515064  515064      515064  
+                     nunique       29     163        7015  
+          31         count     273042   31378      273042  
+                     size      273042  273042      273042  
+                     nunique       29     303        3580  
+          32         count     114576   45276      114576  
+                     size      114576  114576      114576  
+                     nunique       29     127        1566  
+          
+          [96 rows x 9 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nunique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}200}]:}            mun\_code                    year                   month          \textbackslash{}
+                        count    size nunique   count    size nunique   count    size   
+          state\_code                                                                    
+          1             29040   29040      11   29040   29040       4   29040   29040   
+          2             13200   13200       5   13200   13200       4   13200   13200   
+          3             13200   13200       5   13200   13200       4   13200   13200   
+          4             29040   29040      11   29040   29040       4   29040   29040   
+          5            100320  100320      38  100320  100320       4  100320  100320   
+          6             26400   26400      10   26400   26400       4   26400   26400   
+          7            311520  311520     118  311520  311520       4  311520  311520   
+          8            176880  176880      67  176880  176880       4  176880  176880   
+          9             42108   42108      16   42108   42108       4   42108   42108   
+          10           102960  102960      39  102960  102960       4  102960  102960   
+          11           121440  121440      46  121440  121440       4  121440  121440   
+          12           213840  213840      81  213840  213840       4  213840  213840   
+          13           221760  221760      84  221760  221760       4  221760  221760   
+          14           268972  268972     125  268972  268972       4  268972  268972   
+          15           330000  330000     125  330000  330000       4  330000  330000   
+          16           298320  298320     113  298320  298320       4  298320  298320   
+          17            87120   87120      33   87120   87120       4   87120   87120   
+          18            52800   52800      20   52800   52800       4   52800   52800   
+          19           134508  134508      51  134508  134508       4  134508  134508   
+          20           981486  981486     570  981486  981486       4  981486  981486   
+          21           572880  572880     217  572880  572880       4  572880  572880   
+          22            47520   47520      18   47520   47520       4   47520   47520   
+          23            26400   26400      10   26400   26400       4   26400   26400   
+          24           114114  114114      58  114114  114114       4  114114  114114   
+          25            47520   47520      18   47520   47520       4   47520   47520   
+          26           168828  168828      72  168828  168828       4  168828  168828   
+          27            43494   43494      17   43494   43494       4   43494   43494   
+          28           107844  107844      43  107844  107844       4  107844  107844   
+          29           154440  154440      60  154440  154440       4  154440  154440   
+          30           515064  515064     212  515064  515064       4  515064  515064   
+          31           273042  273042     106  273042  273042       4  273042  273042   
+          32           114576  114576      58  114576  114576       4  114576  114576   
+          
+                               crime   {\ldots}      type subtype                   count  \textbackslash{}
+                     nunique   count   {\ldots}   nunique   count    size nunique   count   
+          state\_code                   {\ldots}                                             
+          1               12   29040   {\ldots}        18   29040   29040      29   28904   
+          2               12   13200   {\ldots}        18   13200   13200      29    5392   
+          3               12   13200   {\ldots}        18   13200   13200      29   10200   
+          4               12   29040   {\ldots}        18   29040   29040      29   28973   
+          5               12  100320   {\ldots}        18  100320  100320      29   72473   
+          6               12   26400   {\ldots}        18   26400   26400      29   26400   
+          7               12  311520   {\ldots}        18  311520  311520      29   77854   
+          8               12  176880   {\ldots}        18  176880  176880      29   17750   
+          9               12   42108   {\ldots}        18   42108   42108      29   42072   
+          10              12  102960   {\ldots}        18  102960  102960      29    8578   
+          11              12  121440   {\ldots}        18  121440  121440      29  121436   
+          12              12  213840   {\ldots}        18  213840  213840      29  213837   
+          13              12  221760   {\ldots}        18  221760  221760      29   25553   
+          14              12  268972   {\ldots}        18  268972  268972      29   47053   
+          15              12  330000   {\ldots}        18  330000  330000      29  188017   
+          16              12  298320   {\ldots}        18  298320  298320      29  207920   
+          17              12   87120   {\ldots}        18   87120   87120      29   75005   
+          18              12   52800   {\ldots}        18   52800   52800      29    6753   
+          19              12  134508   {\ldots}        18  134508  134508      29   38544   
+          20              12  981486   {\ldots}        18  981486  981486      29   13370   
+          21              12  572880   {\ldots}        18  572880  572880      29  359022   
+          22              12   47520   {\ldots}        18   47520   47520      29   47520   
+          23              12   26400   {\ldots}        18   26400   26400      29   25872   
+          24              12  114114   {\ldots}        18  114114  114114      29  114114   
+          25              12   47520   {\ldots}        18   47520   47520      29   29520   
+          26              12  168828   {\ldots}        18  168828  168828      29   32922   
+          27              12   43494   {\ldots}        18   43494   43494      29   43490   
+          28              12  107844   {\ldots}        18  107844  107844      29   72604   
+          29              12  154440   {\ldots}        18  154440  154440      29  154307   
+          30              12  515064   {\ldots}        18  515064  515064      29  114144   
+          31              12  273042   {\ldots}        18  273042  273042      29   31378   
+          32              12  114576   {\ldots}        18  114576  114576      29   45276   
+          
+                                     population                  
+                        size nunique      count    size nunique  
+          state\_code                                             
+          1            29040     219      29040   29040     440  
+          2            13200     521      13200   13200     200  
+          3            13200     215      13200   13200     200  
+          4            29040      37      29040   29040     439  
+          5           100320     216     100320  100320    1482  
+          6            26400     113      26400   26400     400  
+          7           311520     123     311520  311520    4505  
+          8           176880     336     176880  176880    2405  
+          9            42108     402      42108   42108     635  
+          10          102960     229     102960  102960    1485  
+          11          121440     342     121440  121440    1809  
+          12          213840     244     213840  213840    2949  
+          13          221760     131     221760  221760    3148  
+          14          268972     314     268972  268972    3781  
+          15          330000     574     330000  330000    4868  
+          16          298320     180     298320  298320    4098  
+          17           87120     206      87120   87120    1304  
+          18           52800      86      52800   52800     797  
+          19          134508     205     134508  134508    1841  
+          20          981486     270     981486  981486    7372  
+          21          572880     385     572880  572880    7179  
+          22           47520     221      47520   47520     711  
+          23           26400     210      26400   26400     400  
+          24          114114     186     114114  114114    1619  
+          25           47520     235      47520   47520     710  
+          26          168828     199     168828  168828    2062  
+          27           43494     296      43494   43494     658  
+          28          107844     168     107844  107844    1492  
+          29          154440      36     154440  154440    2248  
+          30          515064     163     515064  515064    7015  
+          31          273042     303     273042  273042    3580  
+          32          114576     127     114576  114576    1566  
+          
+          [32 rows x 27 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{df\PYZus{}sample} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}205}]:}          state\_code  mun\_code  year  month                             crime  \textbackslash{}
+          5336858          30       205  2012      5                             ROBOS   
+          4548928          27         7  2012      1                             ROBOS   
+          547626            8        10  2013      3  PRIV. DE LA LIBERTAD (SECUESTRO)   
+          2979568          20       235  2012      3                             ROBOS   
+          2884258          20       180  2013     11                             ROBOS   
+          
+                                           category           type       subtype  count  \textbackslash{}
+          5336858   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA         OTROS    NaN   
+          4548928                        ROBO COMUN  SIN VIOLENCIA  DE VEHICULOS    0.0   
+          547626   PRIV. DE LA LIBERTAD (SECUESTRO)      SECUESTRO     SECUESTRO    NaN   
+          2979568   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA     SIN DATOS    NaN   
+          2884258   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA         OTROS    NaN   
+          
+                   population  
+          5336858       19429  
+          4548928       30202  
+          547626        23941  
+          2979568        3710  
+          2884258        2402  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}206}]:} (5740636, 10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}207}]:} (287032, 10)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nunique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}208}]:}                     mun\_code   year  month  crime  category   type  subtype  \textbackslash{}
+          state\_code                                                                    
+          1          count        1457   1457   1457   1457      1457   1457     1457   
+                     size         1457   1457   1457   1457      1457   1457     1457   
+                     nunique        11      4     12      7        10     18       29   
+          2          count         655    655    655    655       655    655      655   
+                     size          655    655    655    655       655    655      655   
+                     nunique         5      4     12      7        10     18       29   
+          3          count         664    664    664    664       664    664      664   
+                     size          664    664    664    664       664    664      664   
+                     nunique         5      4     12      7        10     18       29   
+          4          count        1451   1451   1451   1451      1451   1451     1451   
+                     size         1451   1451   1451   1451      1451   1451     1451   
+                     nunique        11      4     12      7        10     18       29   
+          5          count        5076   5076   5076   5076      5076   5076     5076   
+                     size         5076   5076   5076   5076      5076   5076     5076   
+                     nunique        38      4     12      7        10     18       29   
+          6          count        1309   1309   1309   1309      1309   1309     1309   
+                     size         1309   1309   1309   1309      1309   1309     1309   
+                     nunique        10      4     12      7        10     18       29   
+          7          count       15358  15358  15358  15358     15358  15358    15358   
+                     size        15358  15358  15358  15358     15358  15358    15358   
+                     nunique       118      4     12      7        10     18       29   
+          8          count        8837   8837   8837   8837      8837   8837     8837   
+                     size         8837   8837   8837   8837      8837   8837     8837   
+                     nunique        67      4     12      7        10     18       29   
+          9          count        2121   2121   2121   2121      2121   2121     2121   
+                     size         2121   2121   2121   2121      2121   2121     2121   
+                     nunique        16      4     12      7        10     18       29   
+          10         count        5169   5169   5169   5169      5169   5169     5169   
+                     size         5169   5169   5169   5169      5169   5169     5169   
+                     nunique        39      4     12      7        10     18       29   
+          {\ldots}                      {\ldots}    {\ldots}    {\ldots}    {\ldots}       {\ldots}    {\ldots}      {\ldots}   
+          23         count        1299   1299   1299   1299      1299   1299     1299   
+                     size         1299   1299   1299   1299      1299   1299     1299   
+                     nunique        10      4     12      7        10     18       29   
+          24         count        5644   5644   5644   5644      5644   5644     5644   
+                     size         5644   5644   5644   5644      5644   5644     5644   
+                     nunique        58      4     12      7        10     18       29   
+          25         count        2376   2376   2376   2376      2376   2376     2376   
+                     size         2376   2376   2376   2376      2376   2376     2376   
+                     nunique        18      4     12      7        10     18       29   
+          26         count        8393   8393   8393   8393      8393   8393     8393   
+                     size         8393   8393   8393   8393      8393   8393     8393   
+                     nunique        72      4     12      7        10     18       29   
+          27         count        2095   2095   2095   2095      2095   2095     2095   
+                     size         2095   2095   2095   2095      2095   2095     2095   
+                     nunique        17      4     12      7        10     18       29   
+          28         count        5490   5490   5490   5490      5490   5490     5490   
+                     size         5490   5490   5490   5490      5490   5490     5490   
+                     nunique        43      4     12      7        10     18       29   
+          29         count        7776   7776   7776   7776      7776   7776     7776   
+                     size         7776   7776   7776   7776      7776   7776     7776   
+                     nunique        60      4     12      7        10     18       29   
+          30         count       25785  25785  25785  25785     25785  25785    25785   
+                     size        25785  25785  25785  25785     25785  25785    25785   
+                     nunique       212      4     12      7        10     18       29   
+          31         count       13656  13656  13656  13656     13656  13656    13656   
+                     size        13656  13656  13656  13656     13656  13656    13656   
+                     nunique       106      4     12      7        10     18       29   
+          32         count        5674   5674   5674   5674      5674   5674     5674   
+                     size         5674   5674   5674   5674      5674   5674     5674   
+                     nunique        58      4     12      7        10     18       29   
+          
+                              count  population  
+          state\_code                             
+          1          count     1449        1457  
+                     size      1457        1457  
+                     nunique     49         428  
+          2          count      279         655  
+                     size       655         655  
+                     nunique    120         193  
+          3          count      500         664  
+                     size       664         664  
+                     nunique     59         189  
+          4          count     1448        1451  
+                     size      1451        1451  
+                     nunique     12         425  
+          5          count     3627        5076  
+                     size      5076        5076  
+                     nunique     86        1435  
+          6          count     1309        1309  
+                     size      1309        1309  
+                     nunique     40         388  
+          7          count     3889       15358  
+                     size     15358       15358  
+                     nunique     42        4348  
+          8          count      946        8837  
+                     size      8837        8837  
+                     nunique     74        2335  
+          9          count     2120        2121  
+                     size      2121        2121  
+                     nunique    159         612  
+          10         count      475        5169  
+                     size      5169        5169  
+                     nunique     50        1446  
+          {\ldots}                   {\ldots}         {\ldots}  
+          23         count     1279        1299  
+                     size      1299        1299  
+                     nunique     73         386  
+          24         count     5644        5644  
+                     size      5644        5644  
+                     nunique     46        1554  
+          25         count     1471        2376  
+                     size      2376        2376  
+                     nunique     53         689  
+          26         count     1662        8393  
+                     size      8393        8393  
+                     nunique     53        2003  
+          27         count     2095        2095  
+                     size      2095        2095  
+                     nunique     72         633  
+          28         count     3698        5490  
+                     size      5490        5490  
+                     nunique     77        1451  
+          29         count     7770        7776  
+                     size      7776        7776  
+                     nunique     20        2186  
+          30         count     5792       25785  
+                     size     25785       25785  
+                     nunique     62        6806  
+          31         count     1584       13656  
+                     size     13656       13656  
+                     nunique     61        3460  
+          32         count     2295        5674  
+                     size      5674        5674  
+                     nunique     34        1510  
+          
+          [96 rows x 9 columns]
+\end{Verbatim}
+            
+    \subsubsection{Data Transform}\label{data-transform}
+
+    Drop Rows with missing \texttt{count}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{df\PYZus{}dropped} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}dropped}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}241}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0           1         1  2011      1  DELITOS PATRIMONIALES   
+          1           1         1  2011      2  DELITOS PATRIMONIALES   
+          2           1         1  2011      3  DELITOS PATRIMONIALES   
+          3           1         1  2011      4  DELITOS PATRIMONIALES   
+          4           1         1  2011      5  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+          3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+          4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+          
+             population  
+          0      811483  
+          1      812551  
+          2      813619  
+          3      814686  
+          4      815754  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{df\PYZus{}dropped}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}242}]:} (2326253, 10)
+\end{Verbatim}
+            
+    Copy of df
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{df\PYZus{}copy} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}243}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0           1         1  2011      1  DELITOS PATRIMONIALES   
+          1           1         1  2011      2  DELITOS PATRIMONIALES   
+          2           1         1  2011      3  DELITOS PATRIMONIALES   
+          3           1         1  2011      4  DELITOS PATRIMONIALES   
+          4           1         1  2011      5  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+          3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+          4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+          
+             population  
+          0      811483  
+          1      812551  
+          2      813619  
+          3      814686  
+          4      815754  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}244}]:} (5740636, 10)
+\end{Verbatim}
+            
+    Fill Missing count values with mean count
+
+\begin{itemize}
+\tightlist
+\item
+  ffill() and bfill() functions copy forward the data from the previous
+  row (forward fill) or copy the value from the next row (backward fill)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{df\PYZus{}dropped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dtype}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}249}]:} dtype('float64')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{df\PYZus{}dropped}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}250}]:} 2.30807096218683
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{df\PYZus{}copy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{value}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{decimals}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nunique}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}252}]:}          state\_code  mun\_code     year    month    crime  category     type  \textbackslash{}
+          count       5740636   5740636  5740636  5740636  5740636   5740636  5740636   
+          size        5740636   5740636  5740636  5740636  5740636   5740636  5740636   
+          nunique          32       570        4       12        7        10       18   
+          
+                   subtype    count  population  
+          count    5740636  5740636     5740636  
+          size     5740636  5740636     5740636  
+          nunique       29      889       46404  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} \PY{n}{df\PYZus{}sample} \PY{o}{=} \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}321}]:}          state\_code  mun\_code  year  month                             crime  \textbackslash{}
+          5336858          30       205  2012      5                             ROBOS   
+          4548928          27         7  2012      1                             ROBOS   
+          547626            8        10  2013      3  PRIV. DE LA LIBERTAD (SECUESTRO)   
+          2979568          20       235  2012      3                             ROBOS   
+          2884258          20       180  2013     11                             ROBOS   
+          
+                                           category           type       subtype  count  \textbackslash{}
+          5336858   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA         OTROS    2.0   
+          4548928                        ROBO COMUN  SIN VIOLENCIA  DE VEHICULOS    0.0   
+          547626   PRIV. DE LA LIBERTAD (SECUESTRO)      SECUESTRO     SECUESTRO    2.0   
+          2979568   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA     SIN DATOS    2.0   
+          2884258   ROBO EN INSTITUCIONES BANCARIAS  SIN VIOLENCIA         OTROS    2.0   
+          
+                   population  crime\_cat  
+          5336858       19429          7  
+          4548928       30202          7  
+          547626        23941          6  
+          2979568        3710          7  
+          2884258        2402          7  
+\end{Verbatim}
+            
+    \subsubsection{Handling Categorical
+Data}\label{handling-categorical-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}254}]:} ['DELITOS PATRIMONIALES',
+           'DELITOS SEXUALES',
+           'HOMICIDIOS',
+           'LESIONES',
+           'OTROS DELITOS',
+           'PRIV. DE LA LIBERTAD (SECUESTRO)',
+           'ROBOS']
+\end{Verbatim}
+            
+    Create a dictionary
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{n}{keys} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{vals} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}
+          \PY{n}{crime\PYZus{}map} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{keys}\PY{p}{,} \PY{n}{vals}\PY{p}{)}\PY{p}{)}
+          \PY{n}{crime\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}271}]:} \{'DELITOS PATRIMONIALES': 1,
+           'DELITOS SEXUALES': 2,
+           'HOMICIDIOS': 3,
+           'LESIONES': 4,
+           'OTROS DELITOS': 5,
+           'PRIV. DE LA LIBERTAD (SECUESTRO)': 6,
+           'ROBOS': 7\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{n}{df\PYZus{}copy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime\PYZus{}cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{crime}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{crime\PYZus{}map}\PY{p}{)}
+          \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}272}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0           1         1  2011      1  DELITOS PATRIMONIALES   
+          1           1         1  2011      2  DELITOS PATRIMONIALES   
+          2           1         1  2011      3  DELITOS PATRIMONIALES   
+          3           1         1  2011      4  DELITOS PATRIMONIALES   
+          4           1         1  2011      5  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+          3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+          4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+          
+             population  crime\_cat  
+          0      811483          1  
+          1      812551          1  
+          2      813619          1  
+          3      814686          1  
+          4      815754          1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{crime\PYZus{}cat}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}274}]:} [1, 2, 3, 4, 5, 6, 7]
+\end{Verbatim}
+            
+    \subsubsection{Normalizing Values}\label{normalizing-values}
+
+Attribute normalization is the process of standardizing the range of
+values of attributes
+
+Normalization is also called feature scaling
+
+There are various ways of scaling/normalizing features: * rescaling *
+standardization (or zero-mean unit variance) * unit scaling and many
+more.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}279}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+          
+          \PY{n}{df\PYZus{}normalized} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{min\PYZus{}max\PYZus{}scaler} \PY{o}{=} \PY{n}{preprocessing}\PY{o}{.}\PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+          \PY{n}{np\PYZus{}scaled} \PY{o}{=} \PY{n}{min\PYZus{}max\PYZus{}scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df\PYZus{}normalized}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalized}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population\PYZus{}norm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np\PYZus{}scaled}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{df\PYZus{}normalized}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jacoboleon/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/sklearn/utils/validation.py:475: DataConversionWarning: Data with input dtype int64 was converted to float64 by MinMaxScaler.
+  warnings.warn(msg, DataConversionWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}279}]:}    state\_code  mun\_code  year  month                  crime  \textbackslash{}
+          0           1         1  2011      1  DELITOS PATRIMONIALES   
+          1           1         1  2011      2  DELITOS PATRIMONIALES   
+          2           1         1  2011      3  DELITOS PATRIMONIALES   
+          3           1         1  2011      4  DELITOS PATRIMONIALES   
+          4           1         1  2011      5  DELITOS PATRIMONIALES   
+          
+                          category                type             subtype  count  \textbackslash{}
+          0  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   44.0   
+          1  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   43.0   
+          2  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   34.0   
+          3  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   21.0   
+          4  DELITOS PATRIMONIALES  ABUSO DE CONFIANZA  ABUSO DE CONFIANZA   35.0   
+          
+             population  population\_norm  
+          0      811483         0.443200  
+          1      812551         0.443783  
+          2      813619         0.444367  
+          3      814686         0.444950  
+          4      815754         0.445533  
+\end{Verbatim}
+            
+    \subsubsection{Data Summarization}\label{data-summarization}
+
+Preparing a compact representation of raw data at hand
+
+Aggregation of data using different statistical, mathematical, and other
+methods. Summarization is helpful for visualization, compressing raw
+data, and better understanding of its attributes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}280}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}280}]:} 18.991024687856886
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}282}]:} 19.240224509512238
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}289}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}289}]:}                  mun\_code   month   crime  category    type  subtype  count  \textbackslash{}
+          state\_code year                                                               
+          1          2011      8712    8712    8712      8712    8712     8712   8708   
+                     2012      8712    8712    8712      8712    8712     8712   8585   
+                     2013      8712    8712    8712      8712    8712     8712   8708   
+                     2014      2904    2904    2904      2904    2904     2904   2903   
+          2          2011      3960    3960    3960      3960    3960     3960   1500   
+                     2012      3960    3960    3960      3960    3960     3960   1739   
+                     2013      3960    3960    3960      3960    3960     3960   1512   
+                     2014      1320    1320    1320      1320    1320     1320    641   
+          3          2011      3960    3960    3960      3960    3960     3960   3960   
+                     2012      3960    3960    3960      3960    3960     3960   3960   
+                     2013      3960    3960    3960      3960    3960     3960   1660   
+                     2014      1320    1320    1320      1320    1320     1320    620   
+          4          2011      8712    8712    8712      8712    8712     8712   8646   
+                     2012      8712    8712    8712      8712    8712     8712   8712   
+                     2013      8712    8712    8712      8712    8712     8712   8711   
+                     2014      2904    2904    2904      2904    2904     2904   2904   
+          5          2011     30096   30096   30096     30096   30096    30096  21143   
+                     2012     30096   30096   30096     30096   30096    30096  20524   
+                     2013     30096   30096   30096     30096   30096    30096  23218   
+                     2014     10032   10032   10032     10032   10032    10032   7588   
+          6          2011      7920    7920    7920      7920    7920     7920   7920   
+                     2012      7920    7920    7920      7920    7920     7920   7920   
+                     2013      7920    7920    7920      7920    7920     7920   7920   
+                     2014      2640    2640    2640      2640    2640     2640   2640   
+          7          2011     93456   93456   93456     93456   93456    93456   7211   
+                     2012     93456   93456   93456     93456   93456    93456   6905   
+                     2013     93456   93456   93456     93456   93456    93456  53172   
+                     2014     31152   31152   31152     31152   31152    31152  10566   
+          8          2011     53064   53064   53064     53064   53064    53064   5636   
+                     2012     53064   53064   53064     53064   53064    53064   5243   
+          {\ldots}                   {\ldots}     {\ldots}     {\ldots}       {\ldots}     {\ldots}      {\ldots}    {\ldots}   
+          25         2013     14256   14256   14256     14256   14256    14256   8856   
+                     2014      4752    4752    4752      4752    4752     4752   2952   
+          26         2011     56232   56232   56232     56232   56232    56232  20970   
+                     2012     57024   57024   57024     57024   57024    57024   4824   
+                     2013     36564   36564   36564     36564   36564    36564   3240   
+                     2014     19008   19008   19008     19008   19008    19008   3888   
+          27         2011     13464   13464   13464     13464   13464    13464  13464   
+                     2012     13464   13464   13464     13464   13464    13464  13464   
+                     2013     12078   12078   12078     12078   12078    12078  12075   
+                     2014      4488    4488    4488      4488    4488     4488   4487   
+          28         2011     34056   34056   34056     34056   34056    34056  19397   
+                     2012     34056   34056   34056     34056   34056    34056  22718   
+                     2013     28380   28380   28380     28380   28380    28380  19138   
+                     2014     11352   11352   11352     11352   11352    11352  11351   
+          29         2011     47520   47520   47520     47520   47520    47520  47520   
+                     2012     47520   47520   47520     47520   47520    47520  47519   
+                     2013     47520   47520   47520     47520   47520    47520  47520   
+                     2014     11880   11880   11880     11880   11880    11880  11748   
+          30         2011    164736  164736  164736    164736  164736   164736  20955   
+                     2012    167904  167904  167904    167904  167904   167904  39919   
+                     2013    136818  136818  136818    136818  136818   136818  39748   
+                     2014     45606   45606   45606     45606   45606    45606  13522   
+          31         2011     83952   83952   83952     83952   83952    83952   9246   
+                     2012     83952   83952   83952     83952   83952    83952   9489   
+                     2013     77154   77154   77154     77154   77154    77154   9475   
+                     2014     27984   27984   27984     27984   27984    27984   3168   
+          32         2011     15048   15048   15048     15048   15048    15048  14388   
+                     2012     45936   45936   45936     45936   45936    45936  14256   
+                     2013     45936   45936   45936     45936   45936    45936  14256   
+                     2014      7656    7656    7656      7656    7656     7656   2376   
+          
+                           population  
+          state\_code year              
+          1          2011        8712  
+                     2012        8712  
+                     2013        8712  
+                     2014        2904  
+          2          2011        3960  
+                     2012        3960  
+                     2013        3960  
+                     2014        1320  
+          3          2011        3960  
+                     2012        3960  
+                     2013        3960  
+                     2014        1320  
+          4          2011        8712  
+                     2012        8712  
+                     2013        8712  
+                     2014        2904  
+          5          2011       30096  
+                     2012       30096  
+                     2013       30096  
+                     2014       10032  
+          6          2011        7920  
+                     2012        7920  
+                     2013        7920  
+                     2014        2640  
+          7          2011       93456  
+                     2012       93456  
+                     2013       93456  
+                     2014       31152  
+          8          2011       53064  
+                     2012       53064  
+          {\ldots}                     {\ldots}  
+          25         2013       14256  
+                     2014        4752  
+          26         2011       56232  
+                     2012       57024  
+                     2013       36564  
+                     2014       19008  
+          27         2011       13464  
+                     2012       13464  
+                     2013       12078  
+                     2014        4488  
+          28         2011       34056  
+                     2012       34056  
+                     2013       28380  
+                     2014       11352  
+          29         2011       47520  
+                     2012       47520  
+                     2013       47520  
+                     2014       11880  
+          30         2011      164736  
+                     2012      167904  
+                     2013      136818  
+                     2014       45606  
+          31         2011       83952  
+                     2012       83952  
+                     2013       77154  
+                     2014       27984  
+          32         2011       15048  
+                     2012       45936  
+                     2013       45936  
+                     2014        7656  
+          
+          [128 rows x 8 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}289}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{state\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}289}]:}                  mun\_code   month   crime  category    type  subtype  count  \textbackslash{}
+          state\_code year                                                               
+          1          2011      8712    8712    8712      8712    8712     8712   8708   
+                     2012      8712    8712    8712      8712    8712     8712   8585   
+                     2013      8712    8712    8712      8712    8712     8712   8708   
+                     2014      2904    2904    2904      2904    2904     2904   2903   
+          2          2011      3960    3960    3960      3960    3960     3960   1500   
+                     2012      3960    3960    3960      3960    3960     3960   1739   
+                     2013      3960    3960    3960      3960    3960     3960   1512   
+                     2014      1320    1320    1320      1320    1320     1320    641   
+          3          2011      3960    3960    3960      3960    3960     3960   3960   
+                     2012      3960    3960    3960      3960    3960     3960   3960   
+                     2013      3960    3960    3960      3960    3960     3960   1660   
+                     2014      1320    1320    1320      1320    1320     1320    620   
+          4          2011      8712    8712    8712      8712    8712     8712   8646   
+                     2012      8712    8712    8712      8712    8712     8712   8712   
+                     2013      8712    8712    8712      8712    8712     8712   8711   
+                     2014      2904    2904    2904      2904    2904     2904   2904   
+          5          2011     30096   30096   30096     30096   30096    30096  21143   
+                     2012     30096   30096   30096     30096   30096    30096  20524   
+                     2013     30096   30096   30096     30096   30096    30096  23218   
+                     2014     10032   10032   10032     10032   10032    10032   7588   
+          6          2011      7920    7920    7920      7920    7920     7920   7920   
+                     2012      7920    7920    7920      7920    7920     7920   7920   
+                     2013      7920    7920    7920      7920    7920     7920   7920   
+                     2014      2640    2640    2640      2640    2640     2640   2640   
+          7          2011     93456   93456   93456     93456   93456    93456   7211   
+                     2012     93456   93456   93456     93456   93456    93456   6905   
+                     2013     93456   93456   93456     93456   93456    93456  53172   
+                     2014     31152   31152   31152     31152   31152    31152  10566   
+          8          2011     53064   53064   53064     53064   53064    53064   5636   
+                     2012     53064   53064   53064     53064   53064    53064   5243   
+          {\ldots}                   {\ldots}     {\ldots}     {\ldots}       {\ldots}     {\ldots}      {\ldots}    {\ldots}   
+          25         2013     14256   14256   14256     14256   14256    14256   8856   
+                     2014      4752    4752    4752      4752    4752     4752   2952   
+          26         2011     56232   56232   56232     56232   56232    56232  20970   
+                     2012     57024   57024   57024     57024   57024    57024   4824   
+                     2013     36564   36564   36564     36564   36564    36564   3240   
+                     2014     19008   19008   19008     19008   19008    19008   3888   
+          27         2011     13464   13464   13464     13464   13464    13464  13464   
+                     2012     13464   13464   13464     13464   13464    13464  13464   
+                     2013     12078   12078   12078     12078   12078    12078  12075   
+                     2014      4488    4488    4488      4488    4488     4488   4487   
+          28         2011     34056   34056   34056     34056   34056    34056  19397   
+                     2012     34056   34056   34056     34056   34056    34056  22718   
+                     2013     28380   28380   28380     28380   28380    28380  19138   
+                     2014     11352   11352   11352     11352   11352    11352  11351   
+          29         2011     47520   47520   47520     47520   47520    47520  47520   
+                     2012     47520   47520   47520     47520   47520    47520  47519   
+                     2013     47520   47520   47520     47520   47520    47520  47520   
+                     2014     11880   11880   11880     11880   11880    11880  11748   
+          30         2011    164736  164736  164736    164736  164736   164736  20955   
+                     2012    167904  167904  167904    167904  167904   167904  39919   
+                     2013    136818  136818  136818    136818  136818   136818  39748   
+                     2014     45606   45606   45606     45606   45606    45606  13522   
+          31         2011     83952   83952   83952     83952   83952    83952   9246   
+                     2012     83952   83952   83952     83952   83952    83952   9489   
+                     2013     77154   77154   77154     77154   77154    77154   9475   
+                     2014     27984   27984   27984     27984   27984    27984   3168   
+          32         2011     15048   15048   15048     15048   15048    15048  14388   
+                     2012     45936   45936   45936     45936   45936    45936  14256   
+                     2013     45936   45936   45936     45936   45936    45936  14256   
+                     2014      7656    7656    7656      7656    7656     7656   2376   
+          
+                           population  
+          state\_code year              
+          1          2011        8712  
+                     2012        8712  
+                     2013        8712  
+                     2014        2904  
+          2          2011        3960  
+                     2012        3960  
+                     2013        3960  
+                     2014        1320  
+          3          2011        3960  
+                     2012        3960  
+                     2013        3960  
+                     2014        1320  
+          4          2011        8712  
+                     2012        8712  
+                     2013        8712  
+                     2014        2904  
+          5          2011       30096  
+                     2012       30096  
+                     2013       30096  
+                     2014       10032  
+          6          2011        7920  
+                     2012        7920  
+                     2013        7920  
+                     2014        2640  
+          7          2011       93456  
+                     2012       93456  
+                     2013       93456  
+                     2014       31152  
+          8          2011       53064  
+                     2012       53064  
+          {\ldots}                     {\ldots}  
+          25         2013       14256  
+                     2014        4752  
+          26         2011       56232  
+                     2012       57024  
+                     2013       36564  
+                     2014       19008  
+          27         2011       13464  
+                     2012       13464  
+                     2013       12078  
+                     2014        4488  
+          28         2011       34056  
+                     2012       34056  
+                     2013       28380  
+                     2014       11352  
+          29         2011       47520  
+                     2012       47520  
+                     2013       47520  
+                     2014       11880  
+          30         2011      164736  
+                     2012      167904  
+                     2013      136818  
+                     2014       45606  
+          31         2011       83952  
+                     2012       83952  
+                     2013       77154  
+                     2014       27984  
+          32         2011       15048  
+                     2012       45936  
+                     2013       45936  
+                     2014        7656  
+          
+          [128 rows x 8 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}292}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mun\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}292}]:}                                         crime  mun\_code
+          category                         year                  
+          DELITOS PATRIMONIALES            2011  151872    151872
+                                           2012  203140    203140
+                                           2013  195426    195426
+                                           2014   58366     58366
+          DELITOS SEXUALES (VIOLACION)     2011   21696     21696
+                                           2012   29020     29020
+                                           2013   27918     27918
+                                           2014    8338      8338
+          HOMICIDIOS                       2011  173628    173628
+                                           2012  232160    232160
+                                           2013  223344    223344
+                                           2014   66688     66688
+          LESIONES                         2011  173664    173664
+                                           2012  232160    232160
+                                           2013  223344    223344
+                                           2014   66688     66688
+          OTROS DELITOS                    2011   86784     86784
+                                           2012  116080    116080
+                                           2013  111672    111672
+                                           2014   33344     33344
+          PRIV. DE LA LIBERTAD (SECUESTRO) 2011   21696     21696
+                                           2012   29020     29020
+                                           2013   27918     27918
+                                           2014    8336      8336
+          ROBO COMUN                       2011  303912    303912
+                                           2012  406280    406280
+                                           2013  390852    390852
+                                           2014  116704    116704
+          ROBO DE GANADO (ABIGEATO)        2011   21708     21708
+                                           2012   29020     29020
+                                           2013   27918     27918
+                                           2014    8336      8336
+          ROBO EN CARRETERAS               2011  217080    217080
+                                           2012  290200    290200
+                                           2013  279180    279180
+                                           2014   83360     83360
+          ROBO EN INSTITUCIONES BANCARIAS  2011  260496    260496
+                                           2012  348240    348240
+                                           2013  335016    335016
+                                           2014  100032    100032
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}295}]:} \PY{c+c1}{\PYZsh{} variant\PYZhy{}1: multiple aggregations on single attribute}
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mun\PYZus{}code}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,}
+                                                                        \PY{n}{np}\PY{o}{.}\PY{n}{count\PYZus{}nonzero}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}295}]:}                                       mun\_code                          
+                                                     sum        mean count\_nonzero
+          category                         year                                   
+          DELITOS PATRIMONIALES            2011   406307   54.647882          7435
+                                           2012  1113769  108.809007         10236
+                                           2013  1038856  107.720448          9644
+                                           2014   297999  104.304865          2857
+          DELITOS SEXUALES (VIOLACION)     2011    61266   54.701786          1120
+                                           2012   154505  105.752909          1461
+                                           2013   151283  108.136526          1399
+                                           2014    46499  106.162100           438
+          HOMICIDIOS                       2011   478818   54.659589          8760
+                                           2012  1278098  109.491819         11673
+                                           2013  1184793  106.354847         11140
+                                           2014   363750  106.577791          3413
+          LESIONES                         2011   485332   55.396873          8761
+                                           2012  1262387  107.693824         11722
+                                           2013  1189147  107.178639         11095
+                                           2014   341930  101.493025          3369
+          OTROS DELITOS                    2011   236834   55.412728          4274
+                                           2012   624465  109.459246          5705
+                                           2013   587479  104.850794          5603
+                                           2014   172107  100.765222          1708
+          PRIV. DE LA LIBERTAD (SECUESTRO) 2011    61983   56.348182          1100
+                                           2012   159151  109.986869          1447
+                                           2013   150106  107.757358          1393
+                                           2014    44405  112.703046           394
+          ROBO COMUN                       2011   835459   55.098529         15163
+                                           2012  2200746  109.266968         20141
+                                           2013  2101792  106.787522         19682
+                                           2014   580667   99.856750          5815
+          ROBO DE GANADO (ABIGEATO)        2011    55766   54.036822          1032
+                                           2012   157454  107.697674          1462
+                                           2013   148875  107.724313          1382
+                                           2014    43831  106.128329           413
+          ROBO EN CARRETERAS               2011   589858   54.824612         10759
+                                           2012  1603754  109.898856         14593
+                                           2013  1490269  106.913624         13939
+                                           2014   428213  102.738244          4168
+          ROBO EN INSTITUCIONES BANCARIAS  2011   726232   55.513836         13082
+                                           2012  1906508  110.081875         17319
+                                           2013  1796466  106.824404         16817
+                                           2014   531412  103.831966          5118
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}300}]:} \PY{c+c1}{\PYZsh{} variant\PYZhy{}2: different aggregation functions for each attribute}
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}300}]:}                                           month  population
+          category                         year                      
+          DELITOS PATRIMONIALES            2011  6.526833     1830454
+                                           2012  6.426631     1819980
+                                           2013  6.234965     1813631
+                                           2014  2.341267     1807970
+          DELITOS SEXUALES (VIOLACION)     2011  6.653571     1583012
+                                           2012  6.475702     1716871
+                                           2013  6.228735     1728980
+                                           2014  2.260274     1807532
+          HOMICIDIOS                       2011  6.491553     1826952
+                                           2012  6.507496     1820658
+                                           2013  6.242370     1811473
+                                           2014  2.332552     1739371
+          LESIONES                         2011  6.534870     1827828
+                                           2012  6.512541     1820658
+                                           2013  6.271834     1814171
+                                           2014  2.321164     1739371
+          OTROS DELITOS                    2011  6.535798     1829579
+                                           2012  6.469413     1814710
+                                           2013  6.264680     1812552
+                                           2014  2.369438     1807970
+          PRIV. DE LA LIBERTAD (SECUESTRO) 2011  6.474545     1706078
+                                           2012  6.532827     1816329
+                                           2013  6.196698     1663838
+                                           2014  2.230964     1170136
+          ROBO COMUN                       2011  6.499637     1829579
+                                           2012  6.482846     1821335
+                                           2013  6.246520     1814171
+                                           2014  2.324506     1808408
+          ROBO DE GANADO (ABIGEATO)        2011  6.393411     1824045
+                                           2012  6.578659     1497537
+                                           2013  6.295224     1810159
+                                           2014  2.329298     1162120
+          ROBO EN CARRETERAS               2011  6.458035     1827828
+                                           2012  6.488385     1819303
+                                           2013  6.214363     1812013
+                                           2014  2.346689     1808408
+          ROBO EN INSTITUCIONES BANCARIAS  2011  6.482036     1830454
+                                           2012  6.495352     1820658
+                                           2013  6.269192     1813092
+                                           2014  2.298163     1807970
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}301}]:} \PY{c+c1}{\PYZsh{} variant\PYZhy{}3}
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{,}
+                                                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{,}
+                                                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{variance\PYZus{}population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{\PYZcb{}}\PY{p}{,}
+                                                                         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/jacoboleon/.pyenv/versions/anaconda3-5.1.0/lib/python3.6/site-packages/pandas/core/groupby.py:4291: FutureWarning: using a dict with renaming is deprecated and will be removed in a future version
+  return super(DataFrameGroupBy, self).aggregate(arg, *args, **kwargs)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}301}]:}                                             population                  \textbackslash{}
+                                                total\_population mean\_population   
+          category                         year                                    
+          DELITOS PATRIMONIALES            2011        453808190    61036.743779   
+                                           2012        480997130    46990.731731   
+                                           2013        475415983    49296.555682   
+                                           2014        151647239    53079.187609   
+          DELITOS SEXUALES (VIOLACION)     2011         68951497    61563.836607   
+                                           2012         75809623    51888.859001   
+                                           2013         64690174    46240.295926   
+                                           2014         23072166    52676.178082   
+          HOMICIDIOS                       2011        530321554    60538.990183   
+                                           2012        562741176    48208.787458   
+                                           2013        566325693    50837.135817   
+                                           2014        185816298    54443.685321   
+          LESIONES                         2011        542739059    61949.441730   
+                                           2012        561481121    47899.771455   
+                                           2013        556129903    50124.371609   
+                                           2014        161732528    48006.093203   
+          OTROS DELITOS                    2011        267060983    62485.021759   
+                                           2012        272541991    47772.478703   
+                                           2013        290599652    51865.010173   
+                                           2014         94438725    55291.993560   
+          PRIV. DE LA LIBERTAD (SECUESTRO) 2011         68633214    62393.830909   
+                                           2012         75545646    52208.463027   
+                                           2013         70066821    50299.225413   
+                                           2014         17155397    43541.616751   
+          ROBO COMUN                       2011        909624595    59989.751039   
+                                           2012        971430649    48231.500372   
+                                           2013        994404256    50523.537039   
+                                           2014        306235644    52663.051419   
+          ROBO DE GANADO (ABIGEATO)        2011         62143386    60216.459302   
+                                           2012         72163782    49359.632011   
+                                           2013         63125909    45677.213459   
+                                           2014         17061780    41311.815981   
+          ROBO EN CARRETERAS               2011        649844715    60400.103634   
+                                           2012        709492888    48618.713630   
+                                           2013        665603304    47751.151733   
+                                           2014        215230209    51638.725768   
+          ROBO EN INSTITUCIONES BANCARIAS  2011        788725473    60290.893824   
+                                           2012        816073067    47120.103181   
+                                           2013        858533551    51051.528275   
+                                           2014        269031719    52565.791129   
+          
+                                                                        month  
+                                                variance\_population      mean  
+          category                         year                                
+          DELITOS PATRIMONIALES            2011       153622.547326  6.526833  
+                                           2012       137229.811508  6.426631  
+                                           2013       140482.164855  6.234965  
+                                           2014       144133.427684  2.341267  
+          DELITOS SEXUALES (VIOLACION)     2011       158448.176942  6.653571  
+                                           2012       155774.108605  6.475702  
+                                           2013       133834.948946  6.228735  
+                                           2014       169429.880751  2.260274  
+          HOMICIDIOS                       2011       150290.042398  6.491553  
+                                           2012       140805.469288  6.507496  
+                                           2013       143484.980859  6.242370  
+                                           2014       152894.956959  2.332552  
+          LESIONES                         2011       156468.388421  6.534870  
+                                           2012       140242.059549  6.512541  
+                                           2013       141660.645161  6.271834  
+                                           2014       127590.973441  2.321164  
+          OTROS DELITOS                    2011       160013.958904  6.535798  
+                                           2012       139037.470498  6.469413  
+                                           2013       143698.876282  6.264680  
+                                           2014       158191.586571  2.369438  
+          PRIV. DE LA LIBERTAD (SECUESTRO) 2011       152837.044662  6.474545  
+                                           2012       151158.719730  6.532827  
+                                           2013       138995.900052  6.196698  
+                                           2014       107507.746214  2.230964  
+          ROBO COMUN                       2011       154272.851264  6.499637  
+                                           2012       140002.723548  6.482846  
+                                           2013       141532.822877  6.246520  
+                                           2014       139677.725972  2.324506  
+          ROBO DE GANADO (ABIGEATO)        2011       162816.711351  6.393411  
+                                           2012       132288.729054  6.578659  
+                                           2013       117107.484227  6.295224  
+                                           2014       103575.097023  2.329298  
+          ROBO EN CARRETERAS               2011       152348.456234  6.458035  
+                                           2012       142620.660139  6.488385  
+                                           2013       132903.762955  6.214363  
+                                           2014       136870.168335  2.346689  
+          ROBO EN INSTITUCIONES BANCARIAS  2011       152545.669065  6.482036  
+                                           2012       133635.187221  6.495352  
+                                           2013       145310.091914  6.269192  
+                                           2014       148654.083448  2.298163  
+\end{Verbatim}
+            
+    \subsubsection{Data Visualization}\label{data-visualization}
+
+    Subplots by Hand. The most basic method of creating an axes is to use
+the plt.axes function
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}345}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seaborn\PYZhy{}white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{)}  \PY{c+c1}{\PYZsh{} standard axes}
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{axes}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.65}\PY{p}{,} \PY{l+m+mf}{0.65}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{l+m+mf}{0.2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_82_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}347}]:} \PY{c+c1}{\PYZsh{}The equivalent of this command within the object\PYZhy{}oriented interface is fig.add\PYZus{}axes()}
+          
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{]}\PY{p}{,}
+                             \PY{n}{xticklabels}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mf}{1.2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}axes}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{0.4}\PY{p}{]}\PY{p}{,}
+                             \PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{l+m+mf}{1.2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}347}]:} [<matplotlib.lines.Line2D at 0x1b5c1e9470>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Simple Grids of Subplot
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}348}]:} \PY{c+c1}{\PYZsh{} The lowest level of these is plt.subplot(), which creates a single subplot within a grid}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}349}]:} \PY{c+c1}{\PYZsh{} plt.subplots\PYZus{}adjust can be used to adjust the spacing between these plots}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{subplots\PYZus{}adjust}\PY{p}{(}\PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.4}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{:}
+              \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{i}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                     \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}351}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{row}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}352}]:} \PY{c+c1}{\PYZsh{} axes are in a two\PYZhy{}dimensional array, indexed by [row, col]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{ax}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n+nb}{str}\PY{p}{(}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{fig}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}352}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}353}]:} \PY{c+c1}{\PYZsh{} Create some normally distributed data}
+          \PY{n}{mean} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{cov} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+          \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{multivariate\PYZus{}normal}\PY{p}{(}\PY{n}{mean}\PY{p}{,} \PY{n}{cov}\PY{p}{,} \PY{l+m+mi}{3000}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+          
+          \PY{c+c1}{\PYZsh{} Set up the axes with gridspec}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{grid} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{GridSpec}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{hspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{wspace}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+          \PY{n}{main\PYZus{}ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+          \PY{n}{y\PYZus{}hist} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{xticklabels}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{n}{main\PYZus{}ax}\PY{p}{)}
+          \PY{n}{x\PYZus{}hist} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{n}{grid}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{n}{main\PYZus{}ax}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} scatter points on the main axes}
+          \PY{n}{main\PYZus{}ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{markersize}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.2}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} histogram on the attached axes}
+          \PY{n}{x\PYZus{}hist}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vertical}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{x\PYZus{}hist}\PY{o}{.}\PY{n}{invert\PYZus{}yaxis}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}hist}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{stepfilled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{orientation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horizontal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{y\PYZus{}hist}\PY{o}{.}\PY{n}{invert\PYZus{}xaxis}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_89_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Scatter plots}\label{scatter-plots}
+
+Variables able to be highly correlated. To confirm or validate our
+hypothesis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}354}]:} \PY{c+c1}{\PYZsh{}figure.savefig(\PYZsq{}.../.jpeg\PYZsq{})}
+          \PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{int64}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}354}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1b5c73b7b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_91_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} \PY{c+c1}{\PYZsh{}figure.savefig(\PYZsq{}.../.jpeg\PYZsq{})}
+          
+          \PY{n}{df\PYZus{}copy}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}318}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1583322b0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}323}]:} \PY{c+c1}{\PYZsh{}figure.savefig(\PYZsq{}.../.jpeg\PYZsq{})}
+          
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}323}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1bbd136a0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_93_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}330}]:} \PY{c+c1}{\PYZsh{}figure.savefig(\PYZsq{}.../.jpeg\PYZsq{})}
+          
+          \PY{n}{df\PYZus{}sample}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime\PYZus{}cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}330}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1b4b017908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Histograms}\label{histograms}
+
+Plotting histograms is a great way to visualize the distribution of a
+numerical variable. Plotting a histogram is a method to understand the
+most frequent ranges (or bins as they are called) in which the variable
+lies. One can also check whether the variable is normally distributed or
+skewed on one side.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}338}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency of Crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}338}]:} Text(0.5,1,'Frequency of Day Calls')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_96_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}339}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime\PYZus{}cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency of Crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}339}]:} Text(0.5,1,'Frequency of Crime')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}357}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ax0}\PY{p}{,} \PY{n}{ax1} \PY{o}{=} \PY{n}{axes}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+          \PY{n}{ax0}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime\PYZus{}cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_98_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Boxplots}\label{boxplots}
+
+Boxplots are another way to understand the distribution of a numerical
+variable. It specifies something called quartiles.
+
+If the numbers in a distribution with 100 numbers are arranged in an
+increasing order; * the 1st quartile will occupy the 25th position, *
+the 3rd quartile will occupy the 75th position, and so on. * The median
+will be the average of the 50th and 51st terms. * Median is the middle
+term when the numbers in the distribution are arranged in the increasing
+order. * Mode is the one that occurs with the maximum frequency, * while
+mean is the sum of all the numbers divided by their total count.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}365}]:} \PY{c+c1}{\PYZsh{}plt.boxplot(df\PYZus{}sample[\PYZsq{}crime\PYZus{}cat\PYZsq{}])}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{df\PYZus{}sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{showmeans}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{meanline}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Box Plot of Crime categories}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}365}]:} Text(0.5,1,'Box Plot of Crime categories')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_100_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

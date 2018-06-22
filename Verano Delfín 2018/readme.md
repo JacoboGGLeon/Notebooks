@@ -13,6 +13,7 @@
 
 ### Download the following resources:
 * [fuero-comun-municipios.csv](http://datamx.io/dataset/delitos-del-fuero-comun)
+* [Empleo_Temporal_Jornales.csv](https://datos.gob.mx/busca/dataset/numero-de-jornales-pagados)
 
 
 
